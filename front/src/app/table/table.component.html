@@ -1,0 +1,54 @@
+<div class="table-container">
+  <div class="table-container-filters">filters todo</div>
+  <table class="table-container-table" *ngIf="loading; else loading">
+    <tr class="table-container-table-header">
+      <th class="table-container-table-header-cell image-header">Image</th>
+      <th class="table-container-table-header-cell name-header">
+        Character Name
+      </th>
+      <th class="table-container-table-header-cell shows-header">
+        Number of TV Shows
+      </th>
+      <th class="table-container-table-header-cell games-header">
+        Number of Games
+      </th>
+      <th class="table-container-table-header-cell allies-header">Allies</th>
+      <th class="table-container-table-header-cell enemies-header">Enemies</th>
+    </tr>
+    <tr
+      class="table-container-table-row"
+      *ngFor="let character of characters; index as i"
+    >
+      <td class="table-container-table-row-image">
+        <img [src]="character.imageUrl" alt="Character" />
+      </td>
+      <td class="table-container-table-row-name">
+        {{ character.name }}
+      </td>
+      <td class="table-container-table-row-shows">
+        {{ character.tvShows.length }}
+      </td>
+      <td class="table-container-table-row-games">
+        {{ character.videoGames.length }}
+      </td>
+      <td
+        class="table-container-table-row-allies"
+        *ngIf="character.allies.length > 0; else emptyAllies"
+      >
+        {{ character.allies }}
+      </td>
+      <ng-template #emptyAllies>No Allies.</ng-template>
+      <td
+        class="table-container-table-row-enemies"
+        *ngIf="character.enemies.length > 0; else emptyEnemies"
+      >
+        {{ character.enemies }}
+      </td>
+      <ng-template #emptyEnemies>No Enemies.</ng-template>
+    </tr>
+  </table>
+  <!-- todo fix loading -->
+  <ng-template #loading>Loading...</ng-template>
+
+  <div class="table-container-footer">Footer</div>
+</div>
