@@ -9,7 +9,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ModalComponent } from './modal/modal.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import { HighchartsChartModule } from 'highcharts-angular';
+import { ChartComponent } from './chart/chart.component';
 const appRoutes: Routes = [{ path: '', component: DashboardComponent }];
 @NgModule({
   declarations: [
@@ -18,11 +19,13 @@ const appRoutes: Routes = [{ path: '', component: DashboardComponent }];
     SpinnerComponent,
     ModalComponent,
     DashboardComponent,
+    ChartComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    HighchartsChartModule,
     RouterModule.forRoot(appRoutes),
   ],
   providers: [Character],
