@@ -16,6 +16,8 @@ export class TableComponent implements OnInit {
   showsAscending: boolean = true;
   gamesAscending: boolean = true;
   sortField: 'name' | 'shows' | 'games' = 'name';
+  paginationOptions = [10, 20, 50, 100, 200, 500];
+  selectedPaginationCount = 50;
   constructor(private characterService: CharacterService) {}
 
   ngOnInit() {

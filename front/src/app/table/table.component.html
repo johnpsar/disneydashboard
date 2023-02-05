@@ -1,5 +1,4 @@
 <div class="table-container">
-  <div class="table-container-filters">filters todo</div>
   <table class="table-container-table" *ngIf="loading; else loading">
     <tr class="table-container-table-header">
       <th class="table-container-table-header-image"></th>
@@ -74,5 +73,21 @@
   <!-- todo fix loading -->
   <ng-template #loading>Loading...</ng-template>
 
-  <div class="table-container-footer">Footer</div>
+  <div class="table-container-footer">
+    <div class="table-container-footer-rpp">
+      <div class="table-container-footer-rpp-text">Rows per page:&nbsp;</div>
+      <div class="table-container-footer-rpp-dropdown">
+        <select [(ngModel)]="selectedPaginationCount" class="dropdown">
+          <option *ngFor="let option of paginationOptions" [value]="option">
+            {{ option }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="table-container-footer-results">1-10 of 276</div>
+    <div class="table-container-footer-pagination">
+      <div class="table-container-footer-pagination-prev"><</div>
+      <div class="table-container-footer-pagination-next">></div>
+    </div>
+  </div>
 </div>

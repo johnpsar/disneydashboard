@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { TableComponent } from './table/table.component';
 import { Character } from './character';
@@ -10,7 +10,12 @@ import { RouterModule, Routes } from '@angular/router';
 const appRoutes: Routes = [{ path: '', component: TableComponent }];
 @NgModule({
   declarations: [AppComponent, TableComponent],
-  imports: [BrowserModule, HttpClientModule, RouterModule.forRoot(appRoutes)],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    RouterModule.forRoot(appRoutes),
+  ],
   providers: [Character],
   bootstrap: [AppComponent],
 })
