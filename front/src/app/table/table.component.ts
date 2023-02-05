@@ -29,7 +29,6 @@ export class TableComponent implements OnInit {
       .then((response) => {
         console.log('response received', response);
         this.characters = response;
-        console.log(this.characters.length);
         this.loading = false;
       }),
       (error: any) => {
@@ -38,6 +37,7 @@ export class TableComponent implements OnInit {
         this.loading = false;
       };
     this.onSortClick('name');
+    this.loading = false;
   }
 
   onSortClick(field: string) {
@@ -51,7 +51,6 @@ export class TableComponent implements OnInit {
         this.characters.sort(function (a: Character, b: Character) {
           var keyA = a.name,
             keyB = b.name;
-          console.log(keyA, keyB);
           if (that.nameAscending) {
             if (keyA < keyB) return -1;
             if (keyA >= keyB) return 1;
@@ -109,11 +108,31 @@ export class TableComponent implements OnInit {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
+    this.refetchData();
   }
   onNextClick() {
     if (this.currentPage * this.limit + this.limit < 7438) {
       this.currentPage++;
     }
+    this.refetchData();
+  }
+
+  async refetchData() {
+    this.loading = true;
+    await this.characterService
+      .getPaginatedCharacters(this.currentPage, this.limit)
+      .then((response) => {
+        console.log('response received', response);
+        this.characters = response;
+        this.loading = false;
+      }),
+      (error: any) => {
+        console.error('Request failed with error');
+        this.errorMessage = error;
+        this.loading = false;
+      };
+    this.onSortClick('name');
+    this.loading = false;
   }
 }
 //TODO RERENDER COMPONENT ON PAGE OR LIMIT CHANGE

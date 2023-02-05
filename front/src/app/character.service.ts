@@ -19,7 +19,6 @@ export class CharacterService {
 
   //getCharacters Returns 50 first characters sorted by name
   getCharacters(page: number): Observable<any> {
-    console.log('PAGE ', page);
     let params = new HttpParams().set('page', page.toString());
     return this.http
       .get<Character[]>(`${this.url}`, { params })
@@ -34,14 +33,12 @@ export class CharacterService {
     if (limit <= 50) {
       let temp = this.getCharacters(Math.ceil((limit * page) / 50));
       let temp2 = await lastValueFrom(temp);
-      console.log('TEMP DAATA', temp2.data);
       characters = temp2.data;
       //special case limit 20 kai page 3 pou thelo teleftaia 10 protou page kai prota 10 deuterou page
       if (((page * limit - limit) % 50) + limit > 50) {
         let temp = this.getCharacters(Math.ceil(limit / 50) + 1);
         let temp2 = await lastValueFrom(temp);
         characters = characters.concat(temp2.data);
-        console.log('AHAHAHAHAHAHAH', characters.length);
       }
       characters = characters.slice(
         (page * limit - limit) % 50,
@@ -54,13 +51,11 @@ export class CharacterService {
         i <= (limit / 50) * page;
         i++
       ) {
-        console.log('mpika me i : ', i);
         let temp = this.getCharacters(i);
         let temp2 = await lastValueFrom(temp);
         characters = characters.concat(temp2.data);
       }
     }
-    console.log('CHARACTERS', characters.length);
     return characters;
     // return this.http.get<Character[]>(this.url); //todo delete wrong
   }

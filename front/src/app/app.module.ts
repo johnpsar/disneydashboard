@@ -6,10 +6,11 @@ import { TableComponent } from './table/table.component';
 import { Character } from './character';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 const appRoutes: Routes = [{ path: '', component: TableComponent }];
 @NgModule({
-  declarations: [AppComponent, TableComponent],
+  declarations: [AppComponent, TableComponent, SpinnerComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
