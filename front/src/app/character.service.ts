@@ -31,9 +31,8 @@ export class CharacterService {
     limit: number
   ): Promise<Character[]> {
     let characters: Character[] = [];
-    //thelo an paro page 6 limit 10 na exo page 2 limit 10
     if (limit <= 50) {
-      let temp = this.getCharacters(Math.ceil(limit / 50));
+      let temp = this.getCharacters(Math.ceil((limit * page) / 50));
       let temp2 = await lastValueFrom(temp);
       console.log('TEMP DAATA', temp2.data);
       characters = temp2.data;
@@ -61,7 +60,7 @@ export class CharacterService {
         characters = characters.concat(temp2.data);
       }
     }
-    console.log('CHARACTERS', characters);
+    console.log('CHARACTERS', characters.length);
     return characters;
     // return this.http.get<Character[]>(this.url); //todo delete wrong
   }

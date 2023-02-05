@@ -77,17 +77,29 @@
     <div class="table-container-footer-rpp">
       <div class="table-container-footer-rpp-text">Rows per page:&nbsp;</div>
       <div class="table-container-footer-rpp-dropdown">
-        <select [(ngModel)]="selectedPaginationCount" class="dropdown">
+        <select [(ngModel)]="limit" class="dropdown">
           <option *ngFor="let option of paginationOptions" [value]="option">
             {{ option }}
           </option>
         </select>
       </div>
     </div>
-    <div class="table-container-footer-results">1-10 of 276</div>
+    <div class="table-container-footer-results">
+      {{ currentPage * limit - limit }}- {{ currentPage * limit }} of 7438
+    </div>
     <div class="table-container-footer-pagination">
-      <div class="table-container-footer-pagination-prev"><</div>
-      <div class="table-container-footer-pagination-next">></div>
+      <div
+        class="table-container-footer-pagination-prev"
+        (click)="onPrevClick()"
+      >
+        <
+      </div>
+      <div
+        class="table-container-footer-pagination-next"
+        (click)="onNextClick()"
+      >
+        >
+      </div>
     </div>
   </div>
 </div>

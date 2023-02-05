@@ -12,19 +12,20 @@ export class TableComponent implements OnInit {
   characters: Character[] = [];
   loading: boolean = false;
   errorMessage: string = '';
-  nameAscending: boolean = true;
+  nameAscending: boolean = false;
   showsAscending: boolean = true;
   gamesAscending: boolean = true;
   sortField: 'name' | 'shows' | 'games' = 'name';
   paginationOptions = [10, 20, 50, 100, 200, 500];
-  selectedPaginationCount = 50;
+  limit = 50;
+  currentPage = 1;
   constructor(private characterService: CharacterService) {}
 
   async ngOnInit() {
     this.loading = true;
     this.errorMessage = '';
     await this.characterService
-      .getPaginatedCharacters(3, 20)
+      .getPaginatedCharacters(this.currentPage, this.limit)
       .then((response) => {
         console.log('response received', response);
         this.characters = response;
@@ -36,6 +37,7 @@ export class TableComponent implements OnInit {
         this.errorMessage = error;
         this.loading = false;
       };
+    this.onSortClick('name');
   }
 
   onSortClick(field: string) {
@@ -103,4 +105,15 @@ export class TableComponent implements OnInit {
       }
     }
   }
+  onPrevClick() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+  onNextClick() {
+    if (this.currentPage * this.limit + this.limit < 7438) {
+      this.currentPage++;
+    }
+  }
 }
+//TODO RERENDER COMPONENT ON PAGE OR LIMIT CHANGE
