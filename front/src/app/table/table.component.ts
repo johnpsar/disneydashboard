@@ -115,9 +115,17 @@ export class TableComponent implements OnInit {
     this.refetchData();
   }
   onNextClick() {
-    if (this.currentPage * this.limit + this.limit < 7438) {
+    if (
+      Number(this.currentPage) * Number(this.limit) + Number(this.limit) <
+      7438
+    ) {
       this.currentPage++;
     }
+    console.log(
+      this.currentPage,
+      this.limit,
+      Number(this.currentPage) * Number(this.limit) + Number(this.limit)
+    );
     this.refetchData();
   }
 

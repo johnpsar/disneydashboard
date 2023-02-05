@@ -5,17 +5,38 @@
 ></div>
 <div class="modal" [ngClass]="{ show: show }">
   <div class="modal-header">
-    <h5 class="modal-title">{{ character.name }}</h5>
-    <button type="button" class="close" (click)="closeModal()">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <button class="close" (click)="closeModal()">&times;</button>
+    <div class="modal-header-title">{{ character.name }}</div>
   </div>
   <div class="modal-body">
-    <ng-content></ng-content>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="closeModal()">
-      Close
-    </button>
+    <div class="modal-body-top">
+      <div class="modal-body-top-image">
+        <img [src]="character.imageUrl" />
+      </div>
+    </div>
+    <div class="modal-body-bottom">
+      <div class="modal-body-bottom-games">
+        <div class="modal-body-bottom-games-title">Games:</div>
+        <div class="modal-body-bottom-games-content">
+          <div
+            class="modal-body-bottom-games-content-game"
+            *ngFor="let game of character.videoGames"
+          >
+            {{ game }},
+          </div>
+        </div>
+      </div>
+      <div class="modal-body-bottom-shows">
+        <div class="modal-body-bottom-shows-title">Shows:</div>
+        <div class="modal-body-bottom-shows-content">
+          <div
+            class="modal-body-bottom-shows-content-game"
+            *ngFor="let show of character.tvShows"
+          >
+            {{ show }},
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
