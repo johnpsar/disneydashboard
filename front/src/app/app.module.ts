@@ -7,10 +7,11 @@ import { Character } from './character';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { ModalComponent } from './modal/modal.component';
 
 const appRoutes: Routes = [{ path: '', component: TableComponent }];
 @NgModule({
-  declarations: [AppComponent, TableComponent, SpinnerComponent],
+  declarations: [AppComponent, TableComponent, SpinnerComponent, ModalComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

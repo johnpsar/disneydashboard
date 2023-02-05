@@ -1,4 +1,13 @@
 <div class="table-container">
+  <div class="table-container-header">
+    <div class="table-container-header-input">
+      <input
+        type="text"
+        placeholder="Search Characters by Name"
+        (input)="onSearch($event)"
+      />
+    </div>
+  </div>
   <table class="table-container-table" *ngIf="!loading; else test">
     <tr class="table-container-table-header">
       <th class="table-container-table-header-image"></th>
@@ -40,7 +49,7 @@
     </tr>
     <tr
       class="table-container-table-row"
-      *ngFor="let character of characters; index as i"
+      *ngFor="let character of displayedCharacters; index as i"
     >
       <td class="table-container-table-row-image">
         <img [src]="character.imageUrl" alt="Character" />

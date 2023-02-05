@@ -10,6 +10,7 @@ import { observable } from 'rxjs';
 })
 export class TableComponent implements OnInit {
   characters: Character[] = [];
+  displayedCharacters: Character[] = [];
   loading: boolean = false;
   errorMessage: string = '';
   nameAscending: boolean = false;
@@ -37,6 +38,7 @@ export class TableComponent implements OnInit {
         this.loading = false;
       };
     this.onSortClick('name');
+    this.displayedCharacters = this.characters;
     this.loading = false;
   }
 
@@ -48,7 +50,7 @@ export class TableComponent implements OnInit {
         this.gamesAscending = true;
         this.showsAscending = true;
         let that = this;
-        this.characters.sort(function (a: Character, b: Character) {
+        this.displayedCharacters.sort(function (a: Character, b: Character) {
           var keyA = a.name,
             keyB = b.name;
           if (that.nameAscending) {
@@ -68,7 +70,7 @@ export class TableComponent implements OnInit {
         this.nameAscending = true;
         this.gamesAscending = true;
         let that = this;
-        this.characters.sort(function (a: Character, b: Character) {
+        this.displayedCharacters.sort(function (a: Character, b: Character) {
           var keyA = a.tvShows.length,
             keyB = b.tvShows.length;
           if (that.showsAscending) {
@@ -88,7 +90,7 @@ export class TableComponent implements OnInit {
         this.nameAscending = true;
         this.showsAscending = true;
         let that = this;
-        this.characters.sort(function (a: Character, b: Character) {
+        this.displayedCharacters.sort(function (a: Character, b: Character) {
           var keyA = a.videoGames.length,
             keyB = b.videoGames.length;
           if (that.gamesAscending) {
@@ -132,7 +134,13 @@ export class TableComponent implements OnInit {
         this.loading = false;
       };
     this.onSortClick('name');
+    this.displayedCharacters = this.characters;
     this.loading = false;
   }
+  onSearch(event: any) {
+    this.displayedCharacters = this.characters;
+    this.displayedCharacters = this.displayedCharacters.filter((c) =>
+      c.name.includes(event.target.value)
+    );
+  }
 }
-//TODO RERENDER COMPONENT ON PAGE OR LIMIT CHANGE
