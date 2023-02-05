@@ -23,12 +23,14 @@ export class TableComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.errorMessage = '';
-    this.characterService.getCharacters().subscribe((response) => {
-      console.log('response received');
-      this.characters = response.data;
-      console.log(this.characters.length);
-      this.loading = false;
-    }),
+    this.characterService
+      .getPaginatedCharacters(1, 100)
+      .subscribe((response) => {
+        console.log('response received', response);
+        this.characters = response;
+        console.log(this.characters.length);
+        this.loading = false;
+      }),
       (error: any) => {
         console.error('Request failed with error');
         this.errorMessage = error;
