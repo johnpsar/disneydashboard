@@ -20,12 +20,12 @@ export class TableComponent implements OnInit {
   selectedPaginationCount = 50;
   constructor(private characterService: CharacterService) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.loading = true;
     this.errorMessage = '';
-    this.characterService
-      .getPaginatedCharacters(1, 100)
-      .subscribe((response) => {
+    await this.characterService
+      .getPaginatedCharacters(3, 20)
+      .then((response) => {
         console.log('response received', response);
         this.characters = response;
         console.log(this.characters.length);
