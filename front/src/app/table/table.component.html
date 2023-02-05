@@ -1,4 +1,9 @@
 <div class="table-container">
+  <app-modal
+    [show]="isModalVisible"
+    [character]="selectedCharacter"
+    (close)="isModalVisible = false"
+  ></app-modal>
   <div class="table-container-header">
     <div class="table-container-header-input">
       <input
@@ -50,6 +55,7 @@
     <tr
       class="table-container-table-row"
       *ngFor="let character of displayedCharacters; index as i"
+      (click)="onRowClick(i)"
     >
       <td class="table-container-table-row-image">
         <img [src]="character.imageUrl" alt="Character" />

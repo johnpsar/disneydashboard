@@ -20,6 +20,8 @@ export class TableComponent implements OnInit {
   paginationOptions = [10, 20, 50, 100, 200, 500];
   limit = 50;
   currentPage = 1;
+  isModalVisible = false;
+  selectedCharacter: Character = new Character();
   constructor(private characterService: CharacterService) {}
 
   async ngOnInit() {
@@ -144,5 +146,9 @@ export class TableComponent implements OnInit {
         .toLocaleLowerCase()
         .includes(event.target.value.toLocaleLowerCase())
     );
+  }
+  onRowClick(index: number) {
+    this.selectedCharacter = this.displayedCharacters[index];
+    this.isModalVisible = true;
   }
 }
