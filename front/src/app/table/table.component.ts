@@ -2,7 +2,6 @@ import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Character } from '../character';
 import { CharacterService } from '../character.service';
-import { observable } from 'rxjs';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -22,6 +21,9 @@ export class TableComponent implements OnInit {
   currentPage = 1;
   isModalVisible = false;
   selectedCharacter: Character = new Character();
+  data: any[] = [];
+  dataToPush = { t: [{ name: '', y: 0 }] };
+
   constructor(private characterService: CharacterService) {}
 
   async ngOnInit() {
@@ -42,6 +44,7 @@ export class TableComponent implements OnInit {
     this.onSortClick('name');
     this.displayedCharacters = this.characters;
     this.loading = false;
+    this.createChartData();
   }
 
   onSortClick(field: string) {
@@ -158,5 +161,17 @@ export class TableComponent implements OnInit {
   onRowClick(index: number) {
     this.selectedCharacter = this.displayedCharacters[index];
     this.isModalVisible = true;
+  }
+
+  createChartData() {
+    this.characters
+      .filter((c) => c.tvShows.length > 0)
+      .forEach((c) => {
+        this.dataToPush.t.push({
+          name: c.name,
+          y: c.tvShows.length,
+        });
+      });
+    console.log('DATA', this.data);
   }
 }

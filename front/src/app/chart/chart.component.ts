@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 
 @Component({
@@ -6,7 +6,8 @@ import * as Highcharts from 'highcharts';
   templateUrl: './chart.component.html',
   styleUrls: ['./chart.component.scss'],
 })
-export class ChartComponent {
+export class ChartComponent implements OnInit {
+  @Input() data: any;
   Highcharts: typeof Highcharts = Highcharts;
   chartOptions: Highcharts.Options = {
     chart: {
@@ -35,43 +36,26 @@ export class ChartComponent {
         type: 'pie',
         data: [
           {
-            name: 'Chrome',
-            y: 70.67,
+            name: 'test',
+            y: 5,
           },
           {
-            name: 'Edge',
-            y: 14.77,
-          },
-          {
-            name: 'Firefox',
-            y: 4.86,
-          },
-          {
-            name: 'Safari',
-            y: 2.63,
-          },
-          {
-            name: 'Internet Explorer',
-            y: 1.53,
-          },
-          {
-            name: 'Opera',
-            y: 1.4,
-          },
-          {
-            name: 'Sogou Explorer',
-            y: 0.84,
-          },
-          {
-            name: 'QQ',
-            y: 0.51,
-          },
-          {
-            name: 'Other',
-            y: 2.6,
+            name: 'test2',
+            y: 51,
           },
         ],
       },
     ],
   };
+
+  ngOnInit(): void {
+    console.log(this.data.t);
+    this.chartOptions.series = [
+      {
+        type: 'pie',
+        data: this.data.t,
+      },
+    ];
+    this.chartOptions.title = { text: 'lol' };
+  }
 }
