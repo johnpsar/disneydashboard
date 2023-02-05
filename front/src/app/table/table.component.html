@@ -2,18 +2,42 @@
   <div class="table-container-filters">filters todo</div>
   <table class="table-container-table" *ngIf="loading; else loading">
     <tr class="table-container-table-header">
-      <th class="table-container-table-header-cell image-header">Image</th>
-      <th class="table-container-table-header-cell name-header">
-        Character Name
+      <th class="table-container-table-header-image"></th>
+      <th class="table-container-table-header-name">
+        <div class="header-pair" (click)="onSortClick('name')">
+          <div class="header-pair-title">CHARACTER</div>
+          <div class="header-pair-icon">
+            <img
+              src="../../assets/icons/arrow-up.svg"
+              [ngClass]="!nameAscending ? 'rotated-icon' : ''"
+            />
+          </div>
+        </div>
       </th>
-      <th class="table-container-table-header-cell shows-header">
-        Number of TV Shows
+      <th class="table-container-table-header-shows">
+        <div class="header-pair" (click)="onSortClick('shows')">
+          <div class="header-pair-title"># OF TV SHOWS</div>
+          <div class="header-pair-icon">
+            <img
+              src="../../assets/icons/arrow-up.svg"
+              [ngClass]="!showsAscending ? 'rotated-icon' : ''"
+            />
+          </div>
+        </div>
       </th>
-      <th class="table-container-table-header-cell games-header">
-        Number of Games
+      <th class="table-container-table-header-games">
+        <div class="header-pair" (click)="onSortClick('games')">
+          <div class="header-pair-title"># OF GAMES</div>
+          <div class="header-pair-icon">
+            <img
+              src="../../assets/icons/arrow-up.svg"
+              [ngClass]="!gamesAscending ? 'rotated-icon' : ''"
+            />
+          </div>
+        </div>
       </th>
-      <th class="table-container-table-header-cell allies-header">Allies</th>
-      <th class="table-container-table-header-cell enemies-header">Enemies</th>
+      <th class="table-container-table-header-allies">ALLIES</th>
+      <th class="table-container-table-header-enemies">ENEMIES</th>
     </tr>
     <tr
       class="table-container-table-row"
@@ -37,14 +61,14 @@
       >
         {{ character.allies }}
       </td>
-      <ng-template #emptyAllies>No Allies.</ng-template>
+      <ng-template #emptyAllies><td>No Allies.</td> </ng-template>
       <td
         class="table-container-table-row-enemies"
         *ngIf="character.enemies.length > 0; else emptyEnemies"
       >
         {{ character.enemies }}
       </td>
-      <ng-template #emptyEnemies>No Enemies.</ng-template>
+      <ng-template #emptyEnemies><td>No Enemies.</td> </ng-template>
     </tr>
   </table>
   <!-- todo fix loading -->
