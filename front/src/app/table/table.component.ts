@@ -140,7 +140,9 @@ export class TableComponent implements OnInit {
   onSearch(event: any) {
     this.displayedCharacters = this.characters;
     this.displayedCharacters = this.displayedCharacters.filter((c) =>
-      c.name.includes(event.target.value)
+      c.name
+        .toLocaleLowerCase()
+        .includes(event.target.value.toLocaleLowerCase())
     );
   }
 }

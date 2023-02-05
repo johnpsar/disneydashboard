@@ -8,10 +8,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ModalComponent } from './modal/modal.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
-const appRoutes: Routes = [{ path: '', component: TableComponent }];
+const appRoutes: Routes = [{ path: '', component: DashboardComponent }];
 @NgModule({
-  declarations: [AppComponent, TableComponent, SpinnerComponent, ModalComponent],
+  declarations: [
+    AppComponent,
+    TableComponent,
+    SpinnerComponent,
+    ModalComponent,
+    DashboardComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
