@@ -35,13 +35,19 @@ export class CharacterService {
     if (limit <= 50) {
       let temp = this.getCharacters(Math.ceil(limit / 50));
       let temp2 = await lastValueFrom(temp);
+      console.log('TEMP DAATA', temp2.data);
       characters = temp2.data;
+      //special case limit 20 kai page 3 pou thelo teleftaia 10 protou page kai prota 10 deuterou page
+      if (((page * limit - limit) % 50) + limit > 50) {
+        let temp = this.getCharacters(Math.ceil(limit / 50) + 1);
+        let temp2 = await lastValueFrom(temp);
+        characters = characters.concat(temp2.data);
+        console.log('AHAHAHAHAHAHAH', characters.length);
+      }
       characters = characters.slice(
         (page * limit - limit) % 50,
         ((page * limit - limit) % 50) + limit
       );
-      //special case limit 20 kai page 3 pou thelo teleftaia 10 protou page kai prota 10 deuterou page
-      //todo
     } else {
       //50 is the # of results per page
       for (
@@ -52,7 +58,7 @@ export class CharacterService {
         console.log('mpika me i : ', i);
         let temp = this.getCharacters(i);
         let temp2 = await lastValueFrom(temp);
-        characters.push = temp2.data;
+        characters = characters.concat(temp2.data);
       }
     }
     console.log('CHARACTERS', characters);
