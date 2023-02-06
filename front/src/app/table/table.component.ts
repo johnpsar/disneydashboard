@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Character } from '../character';
 import { CharacterService } from '../character.service';
 @Component({
@@ -22,8 +22,8 @@ export class TableComponent implements OnInit {
   isModalVisible = false;
   selectedCharacter: Character = new Character();
   data: any[] = [];
-  dataToPush = { t: [{ name: '', y: 0 }] };
-
+  chartOptions: Highcharts.Options = {};
+  hasChartLoaded = false;
   constructor(private characterService: CharacterService) {}
 
   async ngOnInit() {
@@ -45,6 +45,7 @@ export class TableComponent implements OnInit {
     this.displayedCharacters = this.characters;
     this.loading = false;
     this.createChartData();
+    this.hasChartLoaded = true;
   }
 
   onSortClick(field: string) {
@@ -134,6 +135,7 @@ export class TableComponent implements OnInit {
 
   async refetchData() {
     this.loading = true;
+    this.hasChartLoaded = false;
     await this.characterService
       .getPaginatedCharacters(this.currentPage, this.limit)
       .then((response) => {
@@ -148,6 +150,8 @@ export class TableComponent implements OnInit {
       };
     this.onSortClick('name');
     this.displayedCharacters = this.characters;
+    this.createChartData();
+    this.hasChartLoaded = true;
     this.loading = false;
   }
   onSearch(event: any) {
@@ -164,14 +168,43 @@ export class TableComponent implements OnInit {
   }
 
   createChartData() {
+    this.data = [];
     this.characters
       .filter((c) => c.tvShows.length > 0)
       .forEach((c) => {
-        this.dataToPush.t.push({
+        this.data.push({
           name: c.name,
           y: c.tvShows.length,
         });
       });
-    console.log('DATA', this.data);
+    this.chartOptions = {
+      chart: {
+        plotShadow: false,
+        type: 'pie',
+      },
+      title: {
+        text: 'Characters share in TV Shows',
+        align: 'left',
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+          },
+        },
+      },
+      series: [
+        {
+          type: 'pie',
+          data: this.data,
+        },
+      ],
+    };
   }
 }

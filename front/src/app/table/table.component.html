@@ -120,5 +120,6 @@
     </div>
   </div>
 </div>
-
-<app-chart [data]="dataToPush"></app-chart>
+<ng-container *ngIf="hasChartLoaded">
+  <app-chart [data]="chartOptions"></app-chart>
+</ng-container>
