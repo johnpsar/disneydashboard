@@ -123,3 +123,4 @@
 <ng-container *ngIf="hasChartLoaded">
   <app-chart [data]="chartOptions"></app-chart>
 </ng-container>
+<button (click)="saveAsExcelFile(this.data, 'test')">Download</button>

@@ -2,6 +2,8 @@ import { NgClass } from '@angular/common';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Character } from '../character';
 import { CharacterService } from '../character.service';
+import * as XLSX from 'xlsx';
+import { FileSaverService } from 'ngx-filesaver';
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -24,7 +26,10 @@ export class TableComponent implements OnInit {
   data: any[] = [];
   chartOptions: Highcharts.Options = {};
   hasChartLoaded = false;
-  constructor(private characterService: CharacterService) {}
+  constructor(
+    private characterService: CharacterService,
+    private fileSaverService: FileSaverService
+  ) {}
 
   async ngOnInit() {
     this.loading = true;
@@ -165,6 +170,21 @@ export class TableComponent implements OnInit {
   onRowClick(index: number) {
     this.selectedCharacter = this.displayedCharacters[index];
     this.isModalVisible = true;
+  }
+
+  downloadChart(data: any) {
+    const ws = XLSX.utils.json_to_sheet(data);
+    const wb = { Sheets: { data: ws }, SheetNames: ['data'] };
+    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, 'chart-data');
+  }
+
+  saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([JSON.stringify(buffer)], { type: 'xlsx' });
+    this.fileSaverService.save(
+      data,
+      fileName + '_export_' + new Date().getTime() + '.xlsx'
+    );
   }
 
   createChartData() {

@@ -11,6 +11,7 @@ import { ModalComponent } from './modal/modal.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { ChartComponent } from './chart/chart.component';
+import { FileSaverModule } from 'ngx-filesaver';
 const appRoutes: Routes = [{ path: '', component: DashboardComponent }];
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ const appRoutes: Routes = [{ path: '', component: DashboardComponent }];
     HttpClientModule,
     FormsModule,
     HighchartsChartModule,
+    FileSaverModule,
     RouterModule.forRoot(appRoutes),
   ],
   providers: [Character],
